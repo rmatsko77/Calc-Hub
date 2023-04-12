@@ -14,7 +14,7 @@ export const ACTIONS = {
 function reducer(state, { type, payload }) {
   switch(type) {
     case ACTIONS.ADD_DIGIT:
-      if(payload.digit == '.' && state.currentOperand == null) {
+      if(payload.digit === '.' && state.currentOperand == null) {
         return {
           ...state,
           currentOperand: '0.'
@@ -75,7 +75,7 @@ function reducer(state, { type, payload }) {
     case ACTIONS.EVALUATE:
       if(
         state.currentOperand == null || 
-        state.previousOperand ==null || 
+        state.previousOperand == null || 
         state.operation == null
       ) {
         return state
@@ -91,7 +91,7 @@ function reducer(state, { type, payload }) {
       if (state.currentOperand == null) {
         return state
       }
-      if (state.currentOperand.length == 1) {
+      if (state.currentOperand.length === 1) {
         return {
           ...state,
           currentOperand: null
@@ -105,6 +105,8 @@ function reducer(state, { type, payload }) {
 
     case ACTIONS.CLEAR:
       return {}
+
+    default: return state
   }
 }
 
@@ -130,6 +132,8 @@ function evaluate({currentOperand, previousOperand, operation}) {
     case '÷':
       computation = prev / current
       break
+
+    default: return {}
   }
   return computation.toString()
 }
